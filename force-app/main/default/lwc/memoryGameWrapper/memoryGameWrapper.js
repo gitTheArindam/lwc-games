@@ -9,6 +9,10 @@ const DEFAULT_GRID_SIZE = 4;
 const GAME_OVER_MESSAGE = "Game Over!";
 const SUCCESS_VARIANT = "success";
 const ERROR_VARIANT = "error";
+const SUMMER = "summer";
+const RAINY = "rainy";
+const WINTER = "winter";
+const SPRING = "spring";
 
 export default class MemoryGameWrapper extends LightningElement {
     @track iconList;
@@ -55,7 +59,8 @@ export default class MemoryGameWrapper extends LightningElement {
         request.onload = (event) => {
             if (request.readyState === 4) {
                 if (request.status === 200) {
-                    this.iconList = request.responseText.split(",");
+                    const iconList = JSON.parse(request.responseText).iconList;
+                    this.iconList = this.getSeasonalIcons(iconList);
                     this.shuffleIconList(this.iconList);
                 } else {
                     console.error(request.statusText);
@@ -167,6 +172,26 @@ export default class MemoryGameWrapper extends LightningElement {
                 previousTile.showIcon = false;
             }
         }
+    }
+
+    getSeasonalIcons(iconList) {
+        let seasonName = "";
+        const currentMonth = new Date().getMonth();
+
+        if (currentMonth >= 0 && currentMonth < 3) {
+            seasonName = WINTER;
+        } else if (currentMonth >= 3 && currentMonth < 6) {
+            seasonName = SUMMER;
+        } else if (currentMonth >= 6 && currentMonth < 9) {
+            seasonName = RAINY;
+        } else if (currentMonth >= 9 && currentMonth < 12) {
+            seasonName = SPRING;
+        }
+
+        const seasonObj = iconList.find(
+            (item) => item.seasonName === seasonName
+        );
+        return seasonObj && seasonObj.icons;
     }
 
     fisherYatesShuffle(array) {
