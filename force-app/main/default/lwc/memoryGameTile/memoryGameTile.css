@@ -1,0 +1,30 @@
+.tile-item {
+    /* size of the tile */
+    width: 100px;
+    height: 100px;
+
+    /* tile color and shadow */
+    background-color: #cef4ff;
+    border-radius: 10%;
+    border: black 2px solid;
+    box-shadow: 2px 2px 1px 1px;
+
+    /* centering the icon  */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tile-item_blank {
+    /* size of the tile */
+    width: 100px;
+    height: 100px;
+}
+
+.tile-item:hover {
+    cursor: pointer;
+}
+
+h1 {
+    font-size: xxx-large;
+}

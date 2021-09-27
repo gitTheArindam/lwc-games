@@ -1,0 +1,18 @@
+<template>
+    <template if:true={showTile}>
+        <div
+            onclick={handleTileClick}
+            class="tile-item slds-m-around_none"
+            data-id="tile"
+        >
+            <template if:true={showIcon}>
+                <h1>{tileIcon}</h1>
+            </template>
+        </div>
+    </template>
+    <template if:false={showTile}>
+        <div class="tile-item_blank slds-m-around_none">
+            <h1></h1>
+        </div>
+    </template>
+</template>
